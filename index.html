@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotación de grupos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2b6cb0">
+</head>
+<body>
+
+    <header>
+        <h1>Rotación de Grupos</h1>
+        <button id="btnInstalar" style="display: none;">📲 Instalar Aplicación</button>
+    </header>
+
+    <main class="container">
+        <!-- Controladores superiores -->
+        <div class="controls">
+            <div class="control-group">
+                <label for="selectMeses">Meses:</label>
+                <select id="selectMeses">
+                    <option value="Julio & Agosto">Julio & Agosto</option>
+                    <option value="Septiembre & Octubre">Septiembre & Octubre</option>
+                    <option value="Noviembre & Diciembre">Noviembre & Diciembre</option>
+                    <option value="Enero & Febrero">Enero & Febrero</option>
+                    <option value="Marzo & Abril">Marzo & Abril</option>
+                    <option value="Mayo & Junio">Mayo & Junio</option>
+                </select>
+            </div>
+            <button id="btnRotar" class="btn-action">🔄 Rotar Grupos (1, 2, 5, 6)</button>
+        </div>
+
+        <!-- Cuadro informativo de Asignación de Tareas Mensuales -->
+        <div class="tareas-mes-box">
+            <strong>🎯 Grupos asignados a Tareas Especiales este mes:</strong> 
+            <span id="gruposTareas">Grupos 1 y 3</span>
+        </div>
+
+        <!-- Contenedor de la Tabla -->
+        <div class="table-responsive">
+            <table id="tablaGrupos">
+                <thead>
+                    <tr>
+                        <th id="headerMeses">Julio & Agosto</th>
+                        <th>Encargado Fijo</th>
+                        <th>Encargado que Rota</th> <!-- Nombre actualizado aquí -->
+                        <th>Hogar</th>
+                        <th>Dirección</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaBody">
+                    <!-- Fila 1 -->
+                    <tr data-row="0">
+                        <td><input type="text" class="input-grupo" value="Grupos 3 y 1" readonly></td>
+                        <td><input type="text" class="input-fijo" value="Juan Moa"></td>
+                        <td><input type="text" class="input-movil" value="Lázaro Cabrera" readonly></td>
+                        <td><input type="text" class="input-hogar" value="Roberto Gutiérrez"></td>
+                        <td><input type="text" class="input-direccion" value="6123 Edgebrook Dr. Orlando, FL 32809"></td>
+                    </tr>
+                    <!-- Fila 2 -->
+                    <tr data-row="1">
+                        <td><input type="text" class="input-grupo" value="Grupos 4 y 2" readonly></td>
+                        <td><input type="text" class="input-fijo" value="David Hernández"></td>
+                        <td><input type="text" class="input-movil" value="Keiff Hernández" readonly></td>
+                        <td><input type="text" class="input-hogar" value="Salón Del Reino"></td>
+                        <td><input type="text" class="input-direccion" value="2077 Honour Rd Orlando FL 32839"></td>
+                    </tr>
+                    <!-- Fila 3 -->
+                    <tr data-row="2">
+                        <td><input type="text" class="input-grupo" value="Grupos 7 y 5" readonly></td>
+                        <td><input type="text" class="input-fijo" value="Harold Morales"></td>
+                        <td><input type="text" class="input-movil" value="Carlos Remolina" readonly></td>
+                        <td><input type="text" class="input-hogar" value="Víctor Navarro"></td>
+                        <td><input type="text" class="input-direccion" value="4250 Lake Richmond Dr. Orlando, FL 32811"></td>
+                    </tr>
+                    <!-- Fila 4 -->
+                    <tr data-row="3">
+                        <td><input type="text" class="input-grupo" value="Grupos 8 y 6" readonly></td>
+                        <td><input type="text" class="input-fijo" value="Dave Hernández"></td>
+                        <td><input type="text" class="input-movil" value="Jorge Carlo" readonly></td>
+                        <td><input type="text" class="input-hogar" value="Pedro Nater"></td>
+                        <td><input type="text" class="input-direccion" value="2341 Mace St. Orlando, FL 32839"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button id="btnGuardar" class="btn-save">💾 Guardar Cambios en la Nube</button>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
