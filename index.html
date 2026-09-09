@@ -16,7 +16,12 @@
     </header>
 
     <main class="container">
-        <!-- Controladores superiores -->
+        <!-- SECCIÓN DE IMAGEN: Totalmente independiente y centrada -->
+        <div class="portada-container">
+            <img src="img/icon-192.png" alt="Logo Precursor" class="logo-app">
+        </div>
+
+        <!-- SECCIÓN DE CONTROLES: Separados de la imagen, fluidos y responsivos -->
         <div class="controls">
             <div class="control-group">
                 <label for="selectMeses">Meses:</label>
@@ -45,13 +50,12 @@
                     <tr>
                         <th id="headerMeses">Julio & Agosto</th>
                         <th>Encargado Fijo</th>
-                        <th>Encargado que Rota</th> <!-- Nombre actualizado aquí -->
+                        <th>Encargado que Rota</th>
                         <th>Hogar</th>
                         <th>Dirección</th>
                     </tr>
                 </thead>
                 <tbody id="tablaBody">
-                    <!-- Fila 1 -->
                     <tr data-row="0">
                         <td><input type="text" class="input-grupo" value="Grupos 3 y 1" readonly></td>
                         <td><input type="text" class="input-fijo" value="Juan Moa"></td>
@@ -59,7 +63,6 @@
                         <td><input type="text" class="input-hogar" value="Roberto Gutiérrez"></td>
                         <td><input type="text" class="input-direccion" value="6123 Edgebrook Dr. Orlando, FL 32809"></td>
                     </tr>
-                    <!-- Fila 2 -->
                     <tr data-row="1">
                         <td><input type="text" class="input-grupo" value="Grupos 4 y 2" readonly></td>
                         <td><input type="text" class="input-fijo" value="David Hernández"></td>
@@ -67,7 +70,6 @@
                         <td><input type="text" class="input-hogar" value="Salón Del Reino"></td>
                         <td><input type="text" class="input-direccion" value="2077 Honour Rd Orlando FL 32839"></td>
                     </tr>
-                    <!-- Fila 3 -->
                     <tr data-row="2">
                         <td><input type="text" class="input-grupo" value="Grupos 7 y 5" readonly></td>
                         <td><input type="text" class="input-fijo" value="Harold Morales"></td>
@@ -75,7 +77,6 @@
                         <td><input type="text" class="input-hogar" value="Víctor Navarro"></td>
                         <td><input type="text" class="input-direccion" value="4250 Lake Richmond Dr. Orlando, FL 32811"></td>
                     </tr>
-                    <!-- Fila 4 -->
                     <tr data-row="3">
                         <td><input type="text" class="input-grupo" value="Grupos 8 y 6" readonly></td>
                         <td><input type="text" class="input-fijo" value="Dave Hernández"></td>
