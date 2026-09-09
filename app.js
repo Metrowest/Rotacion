@@ -1,4 +1,4 @@
-// Configuración inicial indexada de los grupos móviles y sus encargados correspondientes
+// Arreglos de grupos móviles y líderes correspondientes
 let gruposMoviles = Array.of(1, 2, 5, 6);
 let lideresMoviles = Array.of("Lázaro Cabrera", "Keiff Hernández", "Carlos Remolina", "Jorge Carlo");
 
@@ -24,41 +24,72 @@ const tablaBody = document.getElementById('tablaBody');
 // 🔌 URL de Google Apps Script (Tu enlace activo)
 const URL_GOOGLE_SHEETS = "https://script.google.com/macros/s/AKfycbwYRwPhuIdW68Wz1525TnVtarMBduun8KhaOiXWMQH-dJmHjJblCLYCeOXdjXZyPx24/exec"; 
 
-// 1. Sincronizar selectores
+// --- 💾 FUNCIONES DE PERSISTENCIA LOCAL (localStorage) ---
+
+// Guarda el estado actual de los meses y la rotación en el almacenamiento del navegador
+function guardarEstadoLocal() {
+    localStorage.setItem('pwa_mes_seleccionado', selectMeses.value);
+    localStorage.setItem('pwa_grupos_moviles', JSON.stringify(gruposMoviles));
+    localStorage.setItem('pwa_lideres_moviles', JSON.stringify(lideresMoviles));
+    console.log("💾 Estado de la pantalla guardado localmente de forma automática.");
+}
+
+// Carga el último estado guardado al abrir la aplicación
+function cargarEstadoLocal() {
+    const mesGuardado = localStorage.getItem('pwa_mes_seleccionado');
+    const gruposGuardados = localStorage.getItem('pwa_grupos_moviles');
+    const lideresGuardados = localStorage.getItem('pwa_lideres_moviles');
+
+    // Si existen datos guardados previamente, los restauramos
+    if (mesGuardado) {
+        selectMeses.value = mesGuardado;
+        headerMeses.textContent = mesGuardado;
+        gruposTareas.textContent = asignacionTareasPorMes[mesGuardado] || "No asignados";
+    }
+    if (gruposGuardados && lideresGuardados) {
+        gruposMoviles = JSON.parse(gruposGuardados);
+        lideresMoviles = JSON.parse(lideresGuardados);
+    }
+
+    // Redibujamos la tabla basándonos en el último estado recuperado
+    actualizarTablaGrupos();
+}
+
+// ---------------------------------------------------------
+
+// 1. Sincronizar selectores y auto-guardar al cambiar el mes
 selectMeses.addEventListener('change', () => {
     const mesSeleccionado = selectMeses.value;
     headerMeses.textContent = mesSeleccionado;
     gruposTareas.textContent = asignacionTareasPorMes[mesSeleccionado] || "No asignados";
+    
+    // Almacena de inmediato el mes modificado
+    guardarEstadoLocal();
 });
 
-// 2. FUNCIÓN DE ACTUALIZACIÓN FORZADA (Garantiza que el grupo y su encargado roten juntos)
+// 2. Función de actualización visual de la tabla
 function actualizarTablaGrupos() {
     const filas = tablaBody.querySelectorAll('tr');
     const gruposFijos = Array.of(3, 4, 7, 8);
 
     filas.forEach((fila, index) => {
-        // Actualiza el texto de la columna Grupos
-        const inputGrupo = fila.querySelector('.input-grupo');
-        inputGrupo.value = `Grupos ${gruposFijos[index]} y ${gruposMoviles[index]}`;
-        
-        // Actualiza forzadamente el texto de la columna "Encargado que Rota"
-        const inputMovil = fila.querySelector('.input-movil');
-        inputMovil.value = lideresMoviles[index];
+        fila.querySelector('.input-grupo').value = `Grupos ${gruposFijos[index]} y ${gruposMoviles[index]}`;
+        fila.querySelector('.input-movil').value = lideresMoviles[index];
     });
 }
 
-// 3. Botón de Rotación Cíclica en paralelo
+// 3. Botón de Rotación Cíclica en paralelo y auto-guardado
 btnRotar.addEventListener('click', () => {
-    // Rotar los números de los grupos
     const ultimoGrupo = gruposMoviles.pop();
     gruposMoviles.unshift(ultimoGrupo);
 
-    // Rotar los nombres de los líderes en idéntico orden
     const ultimoLider = lideresMoviles.pop();
     lideresMoviles.unshift(ultimoLider);
     
-    // Forzar el redibujado en la pantalla de la PWA
     actualizarTablaGrupos();
+    
+    // Almacena de inmediato el nuevo orden de rotación generado
+    guardarEstadoLocal();
 });
 
 // 4. Guardar los datos estructurados en las 6 columnas de Google Sheets
@@ -129,3 +160,6 @@ btnInstalar.addEventListener('click', async () => {
         eventoInstalacion = null;
     }
 });
+
+// ⏳ EVENTO CRUCIAL: Ejecuta la carga del último estado persistido cuando la app termina de abrirse
+window.addEventListener('DOMContentLoaded', cargarEstadoLocal);
